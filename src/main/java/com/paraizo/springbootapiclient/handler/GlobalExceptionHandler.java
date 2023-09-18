@@ -17,15 +17,15 @@ import com.paraizo.springbootapiclient.exception.ResourceNotFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+    public ResponseEntity<ErrorDetails> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> globleExcpetionHandler(Exception ex, WebRequest request) {
+    public ResponseEntity<ErrorDetails> globleExcpetionHandler(Exception ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
  
     @Override
@@ -33,6 +33,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
            HttpHeaders headers, HttpStatus status, WebRequest request) {
            ErrorDetails errorDetails = new ErrorDetails(new Date(), "Validation Failed",
                ex.getBindingResult().toString());
-           return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
+           return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     } 
 }
