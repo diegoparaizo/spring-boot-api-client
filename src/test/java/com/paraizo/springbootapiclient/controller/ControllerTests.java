@@ -45,26 +45,22 @@ public class ControllerTests {
 	}
 
 	@Test
-	void testCreateClient() throws Exception {
+	public void testCreateClient() throws Exception {
 		
 		when(clientServiceImpl.createClient(client)).thenReturn(client);
 
-		ResponseEntity<Client> cli = clientController.createClient(client);
+		Client c = clientController.createClient(client);
 
-		Assertions.assertNotNull(cli);
-		Assertions.assertEquals(client, cli);
+		Assertions.assertNotNull(c);
+		Assertions.assertEquals(client, c);
 
 	}
 
 	@Test
-	void testUpdateClient() throws Exception {
+	public void testUpdateClient() throws Exception {
 
 		long clientId = 1L;
 		Client client2 = new Client(clientId, "Mary Jane", "maryjane@icloud.com", LocalDate.of(1990, 5, 13));
-
-		when(clientServiceImpl.searchById(Mockito.anyLong())).thenReturn(client);
-
-		when(clientServiceImpl.createClient(client2)).thenReturn(client2);
 
 		ResponseEntity<Client> c = clientController.updateClientById(client.getId(), client2);
 
@@ -73,13 +69,13 @@ public class ControllerTests {
 	}
 
 	@Test
-	void testFindAllClients() throws Exception {
-		List<Client> list = new ArrayList<Client>();
-		list.add(new Client(1L, "John", "john@outlook.com", LocalDate.of(1992, 7, 12)));
-		list.add(new Client(2L, "Alex", "alex@gmail.com", LocalDate.of(1991, 6, 8)));
-		list.add(new Client(3L, "Mary", "mary@icloud.com", LocalDate.of(1990, 5, 4)));
+	public void testFindAllClients() throws Exception {
+		List<Client> listClients = new ArrayList<Client>();
+		listClients.add(new Client(1L, "John", "john@outlook.com", LocalDate.of(1992, 7, 12)));
+		listClients.add(new Client(2L, "Alex", "alex@gmail.com", LocalDate.of(1991, 6, 8)));
+		listClients.add(new Client(3L, "Mary", "mary@icloud.com", LocalDate.of(1990, 5, 4)));
 		
-		when(clientServiceImpl.searchAll()).thenReturn(list);
+		when(clientServiceImpl.searchAll()).thenReturn(listClients);
 
 		List<Client> clientList = clientController.searchAll();
 
@@ -88,7 +84,7 @@ public class ControllerTests {
 	}
 
 	@Test
-	void testFindById() throws Exception {
+	public void testFindById() throws Exception {
 
 		ResponseEntity<Client> c = clientController.searchById(client.getId());
 
@@ -97,7 +93,7 @@ public class ControllerTests {
 	}
 
 	@Test
-	void testDelete() throws Exception {
+	public void testDelete() throws Exception {
 		
 		doNothing().when(clientServiceImpl).deleteClient(client.getId());
 

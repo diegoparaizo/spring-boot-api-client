@@ -6,10 +6,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paraizo.springbootapiclient.exception.RecordNotFoundException;
+import com.paraizo.springbootapiclient.exception.ResourceNotFoundException;
 import com.paraizo.springbootapiclient.model.Client;
 import com.paraizo.springbootapiclient.repository.ClientRepository;
 import com.paraizo.springbootapiclient.service.ClientService;
@@ -52,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public void deleteClient(Long idClient) throws Exception {
 		this.clientRepository.findByIdNative(idClient)
-				.orElseThrow(() -> new RecordNotFoundException("Cliente de id " + idClient + " não encontrado"));
+				.orElseThrow(() -> new ResourceNotFoundException("Cliente de id " + idClient + " não encontrado"));
 
 		this.clientRepository.deleteById(idClient);
 	}

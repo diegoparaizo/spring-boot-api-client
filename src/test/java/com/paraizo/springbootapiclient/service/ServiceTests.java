@@ -77,12 +77,12 @@ public class ServiceTests {
 
 	@Test
 	void testFindAllClients() throws Exception {
-		List<Client> list = new ArrayList<Client>();
-		list.add(new Client(1L, "John", "john@outlook.com", LocalDate.of(1992, 7, 12)));
-		list.add(new Client(2L, "Alex", "alex@gmail.com", LocalDate.of(1991, 6, 8)));
-		list.add(new Client(3L, "Mary", "mary@icloud.com", LocalDate.of(1990, 5, 4)));
+		List<Client> listClients = new ArrayList<Client>();
+		listClients.add(new Client(1L, "John", "john@outlook.com", LocalDate.of(1992, 7, 12)));
+		listClients.add(new Client(2L, "Alex", "alex@gmail.com", LocalDate.of(1991, 6, 8)));
+		listClients.add(new Client(3L, "Mary", "mary@icloud.com", LocalDate.of(1990, 5, 4)));
 
-		when(clientRepository.findAllNative()).thenReturn(list);
+		when(clientRepository.findAllNative()).thenReturn(listClients);
 
 		List<Client> clientList = clienteService.searchAll();
 
